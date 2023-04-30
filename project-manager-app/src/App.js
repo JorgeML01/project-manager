@@ -1,13 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./pages/NavigationBar/NavigationBar";
-import Slider from "./components/Slider";
 
 const Home = () => {
   return (
     <>
       <h1>Home</h1>
-      <Slider />
     </>
   );
 };

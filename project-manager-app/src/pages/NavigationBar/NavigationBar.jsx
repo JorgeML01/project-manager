@@ -8,7 +8,14 @@ function NavigationBar() {
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#">Movie Reviewer</Navbar.Brand>
+        <Navbar.Brand href="/">
+          <img
+            src="/navbar/logo2.png"
+            height="40px"
+            className="d-inline-block align-top"
+            alt="Logo"
+          />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -16,9 +23,21 @@ function NavigationBar() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/about">About</Nav.Link>
-            <Nav.Link href="/contact">Contact</Nav.Link>
+            <Button href="/" variant="dark">
+              Home
+            </Button>
+            <Button href="/about" variant="dark">
+              About
+            </Button>
+            <Button href="/contact" variant="dark">
+              Contact
+            </Button>
+            <Button variant="dark" className="d-lg-none">
+              Sign in
+            </Button>
+            <Button variant="dark" className="d-lg-none">
+              Sign up
+            </Button>
           </Nav>
           <Form className="d-flex">
             <Form.Control
@@ -27,9 +46,15 @@ function NavigationBar() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-success">Search</Button>
+            <Button variant="outline-secondary">Search</Button>
           </Form>
         </Navbar.Collapse>
+        <Button variant="dark" className="d-none d-lg-block">
+          Sign in
+        </Button>
+        <Button variant="dark" className="d-none d-lg-block">
+          Sign up
+        </Button>
       </Container>
     </Navbar>
   );
