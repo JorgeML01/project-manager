@@ -3,14 +3,15 @@ import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import "../../App.css";
 
 function NavigationBar() {
   return (
-    <Navbar bg="dark" expand="lg" variant="dark">
+    <Navbar bg="success" expand="lg" variant="dark">
       <Container fluid>
         <Navbar.Brand href="/">
           <img
-            src="/navbar/logo2.png"
+            src="/navbar/logo4.png"
             height="40px"
             className="d-inline-block align-top"
             alt="Logo"
@@ -23,19 +24,19 @@ function NavigationBar() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Button href="/" variant="dark">
+            <Button href="/" variant="success">
               Home
             </Button>
-            <Button href="/about" variant="dark">
+            <Button href="/about" variant="success">
               About
             </Button>
-            <Button href="/contact" variant="dark">
+            <Button href="/contact" variant="success">
               Contact
             </Button>
-            <Button variant="dark" className="d-lg-none">
+            <Button variant="success" className="d-lg-none">
               Sign in
             </Button>
-            <Button variant="dark" className="d-lg-none">
+            <Button variant="success" className="d-lg-none">
               Sign up
             </Button>
           </Nav>
@@ -46,13 +47,13 @@ function NavigationBar() {
               className="me-2"
               aria-label="Search"
             />
-            <Button variant="outline-secondary">Search</Button>
+            <Button variant="outline-dark">Search</Button>
           </Form>
         </Navbar.Collapse>
-        <Button variant="dark" className="d-none d-lg-block">
+        <Button variant="success" className="d-none d-lg-block">
           Sign in
         </Button>
-        <Button variant="dark" className="d-none d-lg-block">
+        <Button variant="success" className="d-none d-lg-block">
           Sign up
         </Button>
       </Container>

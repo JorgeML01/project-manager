@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./pages/NavigationBar/NavigationBar";
+// import Footer from "./pages/Footer/Footer";
 
 const Home = () => {
   return (
@@ -52,7 +53,7 @@ function App() {
       </Router>
       <h2>Body</h2>
       {/* footer */}
-      <h2>Footer</h2>
+      {/* <Footer /> */}
     </>
   );
 }
