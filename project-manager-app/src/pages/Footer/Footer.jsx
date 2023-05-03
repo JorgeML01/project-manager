@@ -6,13 +6,13 @@ import {
   Column,
   FooterLink,
   Heading,
-} from "./FooterStyles";
+} from "./FooterStyle";
 
 const Footer = () => {
   return (
     <Box>
-      <h1 style={{ color: "green", textAlign: "center", marginTop: "-50px" }}>
-        GeeksforGeeks: A Computer Science Portal for Geeks
+      <h1 style={{ color: "#198754", textAlign: "center", marginTop: "-50px" }}>
+        Project Manager: Experiencia de Usuario
       </h1>
       <Container>
         <Row>
