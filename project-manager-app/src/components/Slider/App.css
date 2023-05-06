@@ -1,0 +1,21 @@
+@media (min-width: 992px) {
+  /* Aplica estilos solo a dispositivos grandes (>= 992px) */
+  .lessWidth {
+    width: 65%;
+    margin: 0 auto;
+  }
+}
+
+h5 {
+  color: white;
+}
+
+.blackFont {
+  color: black;
+  font-weight: bold;
+}
+
+.mainSlider {
+  margin-top: 2em;
+  margin-bottom: 2em;
+}

@@ -40,7 +40,7 @@ function NavigationBar() {
               Sign up
             </Button>
           </Nav>
-          <Form className="d-flex">
+          {/* <Form className="d-flex">
             <Form.Control
               type="search"
               placeholder="Search"
@@ -48,7 +48,7 @@ function NavigationBar() {
               aria-label="Search"
             />
             <Button variant="outline-dark">Search</Button>
-          </Form>
+          </Form> */}
         </Navbar.Collapse>
         <Button variant="success" className="d-none d-lg-block">
           Sign in

@@ -2,11 +2,13 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./pages/NavigationBar/NavigationBar";
 import Footer from "./pages/Footer/Footer";
+import Slider from "./components/Slider";
 
 const Home = () => {
   return (
     <>
-      <h1>Home</h1>
+      {/* <h1 id="title">Project Manager</h1> */}
+      <Slider />
     </>
   );
 };
@@ -51,9 +53,7 @@ function App() {
           <Route>{/* Componente para la página de error 404 */}</Route>
         </Switch>
       </Router>
-      <h2>Body</h2>
-      <h2>Body</h2>
-      <h2>Body</h2>
+      {/* <h2>Body</h2> */}
 
       {/* footer */}
       <Footer />
