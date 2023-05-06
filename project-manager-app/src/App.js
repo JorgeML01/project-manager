@@ -4,6 +4,7 @@ import NavigationBar from "./pages/NavigationBar/NavigationBar";
 import Footer from "./pages/Footer/Footer";
 import Slider from "./components/Slider";
 import MainPageImages from "./components/MainPageImages/MainPageImages";
+import LoginForm from "./pages/Login/Login";
 
 const Home = () => {
   return (
@@ -14,9 +15,6 @@ const Home = () => {
     </>
   );
 };
-
-//! Ésto se pondría nada más si estuviéramos haciendo el Home en un archivo aparte.
-//export default Home;
 
 const About = () => {
   return (
@@ -38,6 +36,7 @@ const Login = () => {
   return (
     <>
       <h1>login</h1>
+      <LoginForm />
     </>
   );
 };

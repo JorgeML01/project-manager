@@ -24,17 +24,17 @@ const Footer = () => {
           </Column>
           <Column>
             <Heading>Services</Heading>
-            <FooterLink href="#">Writing</FooterLink>
-            <FooterLink href="#">Internships</FooterLink>
-            <FooterLink href="#">Coding</FooterLink>
-            <FooterLink href="#">Teaching</FooterLink>
+            <FooterLink href="#">Gestión de tareas</FooterLink>
+            <FooterLink href="#">Personalización de tableros</FooterLink>
+            <FooterLink href="#">Acceso móvil</FooterLink>
+            <FooterLink href="#">Una mejor organización</FooterLink>
           </Column>
           <Column>
             <Heading>Contact Us</Heading>
-            <FooterLink href="#">Uttar Pradesh</FooterLink>
-            <FooterLink href="#">Ahemdabad</FooterLink>
-            <FooterLink href="#">Indore</FooterLink>
-            <FooterLink href="#">Mumbai</FooterLink>
+            <FooterLink href="#">San Pedro Sula</FooterLink>
+            <FooterLink href="#">Tegucigalpa</FooterLink>
+            <FooterLink href="#">La Ceiba</FooterLink>
+            <FooterLink href="#">Choluteca</FooterLink>
           </Column>
           <Column>
             <Heading>Social Media</Heading>
