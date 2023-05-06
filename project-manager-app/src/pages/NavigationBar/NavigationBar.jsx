@@ -7,7 +7,7 @@ import "../../App.css";
 
 function NavigationBar() {
   return (
-    <Navbar bg="success" expand="lg" variant="dark">
+    <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
         <Navbar.Brand href="/">
           <img
@@ -24,19 +24,19 @@ function NavigationBar() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Button href="/" variant="success">
+            <Button href="/" variant="dark">
               Home
             </Button>
-            <Button href="/about" variant="success">
+            <Button href="/about" variant="dark">
               About
             </Button>
-            <Button href="/contact" variant="success">
+            <Button href="/contact" variant="dark">
               Contact
             </Button>
-            <Button variant="success" className="d-lg-none">
+            <Button href="/login" variant="dark" className="d-lg-none">
               Sign in
             </Button>
-            <Button variant="success" className="d-lg-none">
+            <Button href="/register" variant="dark" className="d-lg-none">
               Sign up
             </Button>
           </Nav>
@@ -50,10 +50,10 @@ function NavigationBar() {
             <Button variant="outline-dark">Search</Button>
           </Form> */}
         </Navbar.Collapse>
-        <Button variant="success" className="d-none d-lg-block">
+        <Button href="/login" variant="dark" className="d-none d-lg-block">
           Sign in
         </Button>
-        <Button variant="success" className="d-none d-lg-block">
+        <Button href="/register" variant="dark" className="d-none d-lg-block">
           Sign up
         </Button>
       </Container>

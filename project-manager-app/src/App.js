@@ -34,6 +34,22 @@ const Contact = () => {
   );
 };
 
+const Login = () => {
+  return (
+    <>
+      <h1>login</h1>
+    </>
+  );
+};
+
+const Register = () => {
+  return (
+    <>
+      <h1>register</h1>
+    </>
+  );
+};
+
 function App() {
   return (
     <>
@@ -51,6 +67,12 @@ function App() {
           </Route>
           <Route exact path="/contact">
             {Contact}
+          </Route>
+          <Route exact path="/login">
+            {Login}
+          </Route>
+          <Route exact path="/register">
+            {Register}
           </Route>
           <Route>{/* Componente para la página de error 404 */}</Route>
         </Switch>
