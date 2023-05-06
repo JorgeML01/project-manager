@@ -11,9 +11,9 @@ import {
 const Footer = () => {
   return (
     <Box>
-      <h1 style={{ color: "#198754", textAlign: "center", marginTop: "-50px" }}>
+      {/* <h1 style={{ color: "#198754", textAlign: "center", marginTop: "-50px" }}>
         Project Manager
-      </h1>
+      </h1> */}
       <Container>
         <Row>
           <Column>

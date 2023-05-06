@@ -10,7 +10,13 @@ app.use(express.static(__dirname));
 app.get("/", function (req, res) {
   //console.log(req.query);
   //console.log(req.body);
-  res.send("Holaa");
+  res.send("Hola");
+});
+
+app.post("/:name", function (req, res) {
+  console.log(req.body);
+  console.log(req.params);
+  res.send("abc3");
 });
 
 app.listen(3000);
