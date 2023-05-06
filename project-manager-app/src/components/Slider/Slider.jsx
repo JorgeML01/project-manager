@@ -7,7 +7,7 @@ function Slider() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="/slider/welcome.png"
+          src="/slider/welcomeHDCOLOR.png"
           alt="First slide"
         />
         <Carousel.Caption>

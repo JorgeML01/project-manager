@@ -3,12 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./pages/NavigationBar/NavigationBar";
 import Footer from "./pages/Footer/Footer";
 import Slider from "./components/Slider";
+import MainPageImages from "./components/MainPageImages/MainPageImages";
 
 const Home = () => {
   return (
     <>
       {/* <h1 id="title">Project Manager</h1> */}
       <Slider />
+      <MainPageImages />
     </>
   );
 };

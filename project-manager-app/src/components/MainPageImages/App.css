@@ -1,0 +1,15 @@
+/* MENU MAIN CONTENT */
+.main-page-tile {
+  position: relative;
+  background-color: #198754;
+  border: 2px solid #8edd65;
+  overflow: hidden;
+  /* Sabemos que esas medidas tendrá la imagen. */
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 15px;
+}
+
+.main-page-tile:hover {
+  box-shadow: 0 1px 5px 1px #198754;
+}

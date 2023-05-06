@@ -12,7 +12,7 @@ const Footer = () => {
   return (
     <Box>
       <h1 style={{ color: "#198754", textAlign: "center", marginTop: "-50px" }}>
-        Project Manager: Experiencia de Usuario
+        Project Manager
       </h1>
       <Container>
         <Row>
