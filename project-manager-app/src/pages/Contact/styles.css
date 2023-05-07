@@ -1,0 +1,14 @@
+/* Añadir un margen superior e inferior para separar del navbar y el footer */
+#contact {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+h2 {
+  margin-bottom: 25px;
+}
+
+/* Aumentar el espacio entre las letras */
+p {
+  letter-spacing: 1.5px;
+}

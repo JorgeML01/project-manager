@@ -5,6 +5,9 @@ import Footer from "./pages/Footer/Footer";
 import Slider from "./components/Slider";
 import MainPageImages from "./components/MainPageImages/MainPageImages";
 import LoginForm from "./pages/Login/Login";
+import RegisterForm from "./pages/Register/Register";
+import AboutInfo from "./pages/About/About";
+import ContactInfo from "./pages/Contact/Contact";
 
 const Home = () => {
   return (
@@ -19,7 +22,7 @@ const Home = () => {
 const About = () => {
   return (
     <>
-      <h1>About</h1>
+      <AboutInfo />
     </>
   );
 };
@@ -27,7 +30,7 @@ const About = () => {
 const Contact = () => {
   return (
     <>
-      <h1>Contact</h1>
+      <ContactInfo />
     </>
   );
 };
@@ -43,7 +46,7 @@ const Login = () => {
 const Register = () => {
   return (
     <>
-      <h1>register</h1>
+      <RegisterForm />
     </>
   );
 };

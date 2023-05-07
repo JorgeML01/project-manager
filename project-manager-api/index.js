@@ -1,42 +1,46 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-
 const { isEmail, isPassword } = require("./utils/validator");
+const { getUser } = require("./services/users");
 app.use(bodyParser.json());
 
 //Línea agregada con chatgpt para que funcionen los contenidos estáticos y así poder tener el CSS.
 app.use(express.static(__dirname));
-//"/" es una ruta por defecto.
-app.get("/", function (req, res) {
-  //console.log(req.query);
-  //console.log(req.body);
-  res.send("Hola");
-});
 
-app.post("/login/", function (req, res) {
-  console.log(req.body);
+//* LOGIN.
+app.post("/login/", async function (req, res) {
+  // 0. Middleware.
 
-  // Verificación de los parámetros.abs
-  if (isEmail(req.body.email)) {
-    console.log("válido");
-  } else {
-    console.log("inválido");
+  // 1. Verificación de los parámetros (formato).
+  const errors = [];
+  if (!isEmail(req.body.email)) {
+    errors.push("Email is not valid.");
   }
 
-  if (isPassword(req.body.password)) {
-    console.log("válido");
-  } else {
-    console.log("inválido");
+  if (!isPassword(req.body.password)) {
+    errors.push("Password is not valid.");
   }
 
-  // Ejecución del procediento.
+  // 2. Ejecución del procediento.
+  // 2.1 Validación en base de datos.
 
-  // Mandar respuesta para cada escenario.
+  // En caso de que no hayan errores.
+  if (!errors.length) {
+    const user = await getUser(req.body.email);
+    console.log(user);
+  }
 
-  // Control de excepciones try-catch.
+  // 3.  Mandar respuesta para cada escenario.
 
-  res.send("abc");
+  // 4. Control de excepciones try-catch.
+
+  res.send({
+    sucess: true,
+  });
 });
+
+// GET boards.
+//! TODO:
 
 app.listen(3000);
