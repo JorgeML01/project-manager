@@ -43,4 +43,7 @@ app.post("/login/", async function (req, res) {
 // GET boards.
 //! TODO:
 
+// CRUD de cards.
+//! TODO:
+
 app.listen(3000);
