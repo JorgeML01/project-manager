@@ -58,6 +58,9 @@ app.get("/users/:userId/boards", async function (req, res) {
 });
 
 //* CREATE.
+app.post("/", async function (req, res) {
+  //
+});
 
 // * GET lists/cards.
 // * READ.
@@ -79,6 +82,9 @@ app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
 });
 
 //* UPDATE
+app.put("/", async function (req, res) {
+  //
+});
 
 //* DELETE.
 app.delete(
