@@ -5,6 +5,7 @@ const { isEmail, isPassword } = require("./utils/validator");
 const { getUser } = require("./services/users");
 const { getBoards } = require("./services/boards");
 const { getLists } = require("./services/lists");
+const { getCards } = require("./services/cards");
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
@@ -61,7 +62,20 @@ app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
   const boardId = req.params.boardId;
   const lists = await getLists(boardId);
   console.log(lists);
-  res.json(lists);
+
+  let cards = [];
+
+  for (let i = 0; i < lists.length; i++) {
+    const listId = lists[i].id;
+    const cardsInList = await getCards(listId);
+    cards.push({ listId: listId, cards: cardsInList });
+  }
+  console.log("\n\n\nCARDS");
+  console.log(cards[0].cards[0].name);
+  console.log(cards[0].cards[1].name);
+  console.log(cards[0].cards[2].name);
+  console.log(cards[0].listId);
+  res.json(cards);
 });
 
 //* CRUD de cards.

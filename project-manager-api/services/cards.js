@@ -9,3 +9,12 @@ const knex = require("knex")({
     database: "trellodb",
   },
 });
+
+async function getCards(list_id) {
+  const cards = await knex("cards").select("*").where("list_id", list_id);
+  return cards;
+}
+
+module.exports = {
+  getCards,
+};
