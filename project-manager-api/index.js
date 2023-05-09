@@ -5,7 +5,7 @@ const { isEmail, isPassword } = require("./utils/validator");
 const { getUser } = require("./services/users");
 const { getBoards } = require("./services/boards");
 const { getLists } = require("./services/lists");
-const { getCards } = require("./services/cards");
+const { getCards, deleteCard } = require("./services/cards");
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
@@ -57,7 +57,10 @@ app.get("/users/:userId/boards", async function (req, res) {
   //res.json(boardsJson);
 });
 
-// * GET lists.
+//* CREATE.
+
+// * GET lists/cards.
+// * READ.
 app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
   const boardId = req.params.boardId;
   const lists = await getLists(boardId);
@@ -67,24 +70,25 @@ app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
 
   for (let i = 0; i < lists.length; i++) {
     const listId = lists[i].id;
+    const listName = lists[i].name;
     const cardsInList = await getCards(listId);
-    cards.push({ listId: listId, cards: cardsInList });
+    cards.push({ listId: listId, listName: listName, cards: cardsInList });
   }
-  console.log("\n\n\nCARDS");
-  console.log(cards[0].cards[0].name);
-  console.log(cards[0].cards[1].name);
-  console.log(cards[0].cards[2].name);
-  console.log(cards[0].listId);
+
   res.json(cards);
 });
 
-//* CRUD de cards.
-//! TODO:
-app.get("/users/:userId/boards/:boardId/cards", async function (req, res) {
-  //const userId = req.params.userId;
-  //const boardId = req.params.boardId;
-  //const cards = await getCards(userId, boardId);
-  //res.send(cards);
-});
+//* UPDATE
+
+//* DELETE.
+app.delete(
+  "/users/:userId/boards/:boardId/lists/:listId/cards/:cardId",
+  async function (req, res) {
+    const cardId = req.params.cardId;
+    console.log(cardId);
+    const result = await deleteCard(cardId);
+    res.json(result);
+  }
+);
 
 app.listen(3000);

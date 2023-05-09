@@ -15,6 +15,11 @@ async function getCards(list_id) {
   return cards;
 }
 
+async function deleteCard(id) {
+  await knex("cards").where("id", id).del();
+}
+
 module.exports = {
   getCards,
+  deleteCard,
 };
