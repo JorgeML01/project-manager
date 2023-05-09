@@ -4,11 +4,12 @@ const bodyParser = require("body-parser");
 const { isEmail, isPassword } = require("./utils/validator");
 const { getUser } = require("./services/users");
 const { getBoards } = require("./services/boards");
+const { getLists } = require("./services/lists");
 
 app.use(bodyParser.json());
-
-//Línea agregada con chatgpt para que funcionen los contenidos estáticos y así poder tener el CSS.
 app.use(express.static(__dirname));
+
+//! No usar class componentes sino function componentes de react.
 
 //* LOGIN.
 app.post("/login/", async function (req, res) {
@@ -42,16 +43,34 @@ app.post("/login/", async function (req, res) {
   });
 });
 
-// GET boards.
-//! La ruta creo que sería otra porque depende del user.
-//! Supongo que tendría que usar params y ese tipo de cosas.
+//* GET boards.
 app.get("/users/:userId/boards", async function (req, res) {
   const userId = req.params.userId;
   const boards = await getBoards(userId);
   console.log(boards);
-  res.json(boards);
+
+  // Tengo que parsear la respuesta.
+  // Porque está en otro tipo de dato.
+  //const boardsJson = json.parse(boards);
+  res.json(boards); //! Creo que aquí igual ya me lo está retornando como json de todos modos. Entonces sólo es cuando use ese response...
+  //res.json(boardsJson);
 });
-// CRUD de cards.
+
+// * GET lists.
+app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
+  const boardId = req.params.boardId;
+  const lists = await getLists(boardId);
+  console.log(lists);
+  res.json(lists);
+});
+
+//* CRUD de cards.
 //! TODO:
+app.get("/users/:userId/boards/:boardId/cards", async function (req, res) {
+  //const userId = req.params.userId;
+  //const boardId = req.params.boardId;
+  //const cards = await getCards(userId, boardId);
+  //res.send(cards);
+});
 
 app.listen(3000);

@@ -10,13 +10,13 @@ const knex = require("knex")({
   },
 });
 
-async function getBoards(user_id) {
-  const boards = await knex("boards").select("*").where("user_id", user_id);
-  return boards;
+async function getLists(board_id) {
+  const lists = await knex("lists").select("*").where("board_id", board_id);
+  return lists;
 }
 
 module.exports = {
-  getBoards,
+  getLists,
 };
 
 // knex envía resultRow entonces hay que parsearlo a json.
