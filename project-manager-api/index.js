@@ -5,7 +5,12 @@ const { isEmail, isPassword } = require("./utils/validator");
 const { getUser } = require("./services/users");
 const { getBoards } = require("./services/boards");
 const { getLists } = require("./services/lists");
-const { getCards, deleteCard } = require("./services/cards");
+const {
+  createCard,
+  getCards,
+  deleteCard,
+  updateCard,
+} = require("./services/cards");
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
@@ -49,7 +54,6 @@ app.get("/users/:userId/boards", async function (req, res) {
   const userId = req.params.userId;
   const boards = await getBoards(userId);
   console.log(boards);
-
   // Tengo que parsear la respuesta.
   // Porque está en otro tipo de dato.
   //const boardsJson = json.parse(boards);
@@ -82,9 +86,22 @@ app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
 });
 
 //* UPDATE
-app.put("/", async function (req, res) {
-  //
-});
+app.put(
+  "/users/:userId/boards/:boardId/lists/:listId/cards/:cardId",
+  async function (req, res) {
+    const cardId = req.params.cardId;
+    const { name, description, listId, position } = req.body;
+    console.log(req.body);
+    const result = await updateCard(
+      cardId,
+      name,
+      description,
+      listId,
+      position
+    );
+    res.json(result);
+  }
+);
 
 //* DELETE.
 app.delete(
