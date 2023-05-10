@@ -15,9 +15,7 @@ const {
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
-//! No usar class componentes sino function componentes de react.
-
-//* LOGIN.
+// Login.
 app.post("/login/", async function (req, res) {
   // 0. Middleware.
 
@@ -49,25 +47,32 @@ app.post("/login/", async function (req, res) {
   });
 });
 
-//* GET boards.
+// Read all used boards.
 app.get("/users/:userId/boards", async function (req, res) {
   const userId = req.params.userId;
   const boards = await getBoards(userId);
   console.log(boards);
-  // Tengo que parsear la respuesta.
-  // Porque está en otro tipo de dato.
-  //const boardsJson = json.parse(boards);
-  res.json(boards); //! Creo que aquí igual ya me lo está retornando como json de todos modos. Entonces sólo es cuando use ese response...
-  //res.json(boardsJson);
+  res.json(boards);
 });
 
-//* CREATE.
-app.post("/", async function (req, res) {
-  //
-});
+// Create card.
+app.post(
+  "/users/:userId/boards/:boardId/lists/:listId",
+  async function (req, res) {
+    const { name, description } = req.body;
+    const listId = req.params.listId;
 
-// * GET lists/cards.
-// * READ.
+    try {
+      const newCard = await createCard(name, description, listId);
+      res.json(newCard);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+// Read cards and lists from a board.
 app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
   const boardId = req.params.boardId;
   const lists = await getLists(boardId);
@@ -85,7 +90,7 @@ app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
   res.json(cards);
 });
 
-//* UPDATE
+// Update card.
 app.put(
   "/users/:userId/boards/:boardId/lists/:listId/cards/:cardId",
   async function (req, res) {
@@ -103,7 +108,7 @@ app.put(
   }
 );
 
-//* DELETE.
+// Delete card.
 app.delete(
   "/users/:userId/boards/:boardId/lists/:listId/cards/:cardId",
   async function (req, res) {

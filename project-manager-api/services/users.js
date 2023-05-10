@@ -1,4 +1,3 @@
-// Código para conectarse a la base de datos usando knex.
 const knex = require("knex")({
   client: "mysql",
   connection: {
@@ -11,18 +10,10 @@ const knex = require("knex")({
 });
 
 async function getUser(email) {
-  // Conexión con base de datos.
-
-  // Vamos a tener una lista de usuarios donde se cumpla esta condición.
-  const users = await knex("users").where("email", email);
+  let users = await knex("users").where("email", email);
+  users = JSON.stringify(users);
+  users = JSON.parse(users);
   return users;
-}
-
-// Función para el GET boards.
-async function getBoards(user_id) {
-  // Extraemos los boards de ese user de la base de datos.
-  //! TODO:
-  return 0;
 }
 
 module.exports = {

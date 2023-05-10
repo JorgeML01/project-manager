@@ -1,4 +1,3 @@
-// Código para conectarse a la base de datos usando knex.
 const knex = require("knex")({
   client: "mysql",
   connection: {
@@ -11,13 +10,12 @@ const knex = require("knex")({
 });
 
 async function getBoards(user_id) {
-  const boards = await knex("boards").select("*").where("user_id", user_id);
+  let boards = await knex("boards").select("*").where("user_id", user_id);
+  boards = JSON.stringify(boards);
+  boards = JSON.parse(boards);
   return boards;
 }
 
 module.exports = {
   getBoards,
 };
-
-// knex envía resultRow entonces hay que parsearlo a json.
-// El json lo devolvemos al frontend.
