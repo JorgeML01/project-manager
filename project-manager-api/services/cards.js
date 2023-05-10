@@ -33,12 +33,25 @@ async function getCards(list_id) {
   let cards = await knex("cards").select("*").where("list_id", list_id);
   cards = JSON.stringify(cards);
   cards = JSON.parse(cards);
+  console.log(cards);
   return cards;
 }
 
-//! Fix position when delete.
 async function deleteCard(id) {
+  const cardToDelete = await knex("cards").where("id", id).first();
+  const listId = cardToDelete.list_id;
+  const position = cardToDelete.position;
+
+  // Eliminar la tarjeta de la base de datos.
   await knex("cards").where("id", id).del();
+
+  // Actualizar las posiciones de las tarjetas restantes en la misma lista.
+  await knex("cards")
+    .where("list_id", listId)
+    .where("position", ">", position)
+    .decrement("position", 1);
+
+  return { success: true };
 }
 
 async function updateCard(cardId, name, description, listId, position) {

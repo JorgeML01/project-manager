@@ -76,7 +76,6 @@ app.post(
 app.get("/users/:userId/boards/:boardId/lists", async function (req, res) {
   const boardId = req.params.boardId;
   const lists = await getLists(boardId);
-  console.log(lists);
 
   let cards = [];
 
@@ -95,8 +94,8 @@ app.put(
   "/users/:userId/boards/:boardId/lists/:listId/cards/:cardId",
   async function (req, res) {
     const cardId = req.params.cardId;
-    const { name, description, listId, position } = req.body;
-    console.log(req.body);
+    const listId = req.params.listId;
+    const { name, description, position } = req.body;
     const result = await updateCard(
       cardId,
       name,
@@ -113,7 +112,6 @@ app.delete(
   "/users/:userId/boards/:boardId/lists/:listId/cards/:cardId",
   async function (req, res) {
     const cardId = req.params.cardId;
-    console.log(cardId);
     const result = await deleteCard(cardId);
     res.json(result);
   }
