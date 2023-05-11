@@ -9,10 +9,13 @@ import RegisterForm from "./pages/Register/Register";
 import AboutInfo from "./pages/About/About";
 import ContactInfo from "./pages/Contact/Contact";
 
+//!
+import Dashboard from "./pages/Dashboard/Dashboard";
+//!
+
 const Home = () => {
   return (
     <>
-      {/* <h1 id="title">Project Manager</h1> */}
       <Slider />
       <MainPageImages />
     </>
@@ -51,6 +54,14 @@ const Register = () => {
   );
 };
 
+const Boards = () => {
+  return (
+    <>
+      <Dashboard />
+    </>
+  );
+};
+
 function App() {
   return (
     <>
@@ -74,6 +85,9 @@ function App() {
           </Route>
           <Route exact path="/register">
             {Register}
+          </Route>
+          <Route exact path="/boards">
+            {Boards}
           </Route>
           <Route>{/* Componente para la página de error 404 */}</Route>
         </Switch>

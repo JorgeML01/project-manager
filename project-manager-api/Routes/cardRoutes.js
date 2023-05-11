@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const CardController = require("../controllers/cardController");
+const CardController = require("../Controllers/cardController");
 
 router.post(
   "/users/:userId/boards/:boardId/lists/:listId",
