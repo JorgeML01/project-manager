@@ -18,42 +18,42 @@ const Footer = () => {
         <Row>
           <Column>
             <Heading>About Us</Heading>
-            <FooterLink href="#">Aim</FooterLink>
-            <FooterLink href="#">Vision</FooterLink>
-            <FooterLink href="#">Testimonials</FooterLink>
+            <FooterLink href="/about">Mission</FooterLink>
+            <FooterLink href="/about">Vision</FooterLink>
+            <FooterLink href="/about">Testimonials</FooterLink>
           </Column>
           <Column>
             <Heading>Services</Heading>
-            <FooterLink href="#">Gestión de tareas</FooterLink>
-            <FooterLink href="#">Personalización de tableros</FooterLink>
-            <FooterLink href="#">Acceso móvil</FooterLink>
-            <FooterLink href="#">Una mejor organización</FooterLink>
+            <FooterLink href="/about">Task Management</FooterLink>
+            <FooterLink href="/about">Board Customization</FooterLink>
+            <FooterLink href="/about">Mobile Access</FooterLink>
+            <FooterLink href="/about">Improved Organization</FooterLink>
           </Column>
           <Column>
             <Heading>Contact Us</Heading>
-            <FooterLink href="#">San Pedro Sula</FooterLink>
-            <FooterLink href="#">Tegucigalpa</FooterLink>
-            <FooterLink href="#">La Ceiba</FooterLink>
-            <FooterLink href="#">Choluteca</FooterLink>
+            <FooterLink href="/about">San Pedro Sula</FooterLink>
+            <FooterLink href="/about">Tegucigalpa</FooterLink>
+            <FooterLink href="/about">La Ceiba</FooterLink>
+            <FooterLink href="/about">Choluteca</FooterLink>
           </Column>
           <Column>
             <Heading>Social Media</Heading>
-            <FooterLink href="#">
+            <FooterLink href="https://www.facebook.com/project-manager">
               <i className="fab fa-facebook-f">
                 <span style={{ marginLeft: "10px" }}>Facebook</span>
               </i>
             </FooterLink>
-            <FooterLink href="#">
+            <FooterLink href="https://www.instagram.com/project-manager">
               <i className="fab fa-instagram">
                 <span style={{ marginLeft: "10px" }}>Instagram</span>
               </i>
             </FooterLink>
-            <FooterLink href="#">
+            <FooterLink href="https://twitter.com/project-manager">
               <i className="fab fa-twitter">
                 <span style={{ marginLeft: "10px" }}>Twitter</span>
               </i>
             </FooterLink>
-            <FooterLink href="#">
+            <FooterLink href="https://www.youtube.com/company/project-manager">
               <i className="fab fa-youtube">
                 <span style={{ marginLeft: "10px" }}>Youtube</span>
               </i>
@@ -64,4 +64,5 @@ const Footer = () => {
     </Box>
   );
 };
+
 export default Footer;

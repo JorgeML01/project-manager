@@ -1,14 +1,41 @@
-/* Añadir un margen superior e inferior para separar del navbar y el footer */
 #contact {
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-h2 {
-  margin-bottom: 25px;
+.container-contact {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f6f6f6;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Aumentar el espacio entre las letras */
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333333;
+}
+
 p {
-  letter-spacing: 1.5px;
+  margin-bottom: 15px;
+  color: #555555;
+  line-height: 1.5;
+}
+
+ul {
+  margin-bottom: 15px;
+  padding-left: 20px;
+  list-style-type: disc;
+  color: #555555;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
