@@ -1,37 +1,94 @@
-const BoardServices = require("../services/users");
+const { registerUser, getCredentials } = require("../services/users");
 const { isEmail, isPassword } = require("../utils/validator");
+const HTTPCodes = require("../utils/HTTPCodes");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
 
-async function loginUser(req, res) {
-  // 0. Middleware.
-
-  // 1. Verificación de los parámetros (formato).
-  const errors = [];
-  if (!isEmail(req.body.email)) {
-    errors.push("Email is not valid.");
+async function register(req, res) {
+  const { email, password } = req.body;
+  const errorMessages = [];
+  if (!isEmail(email)) {
+    errorMessages.push("Email is not valid");
   }
 
-  if (!isPassword(req.body.password)) {
-    errors.push("Password is not valid.");
+  if (!isPassword(password)) {
+    errorMessages.push("Password is not valid");
   }
 
-  // 2. Ejecución del procediento.
-  // 2.1 Validación en base de datos.
+  if (errorMessages.length) {
+    res.status(HTTPCodes.BAD_REQUEST).send({ error: errorMessages });
+  } else {
+    const salt = crypto.randomBytes(128).toString("base64");
+    const encryptedPassword = crypto
+      .pbkdf2Sync(password, salt, 30000, 64, "sha256")
+      .toString("base64");
 
-  // En caso de que no hayan errores.
-  if (!errors.length) {
-    const user = await BoardServices.getUser(req.body.email);
-    console.log(user);
+    // req.body
+    /*
+    {
+      email: ""
+      password: ""
+    }
+    */
+    const [newUserId] = await registerUser({
+      ...req.body,
+      encryptedPassword,
+      // salt: salt,
+      salt,
+    });
+
+    res.send({
+      success: true,
+      newUserId,
+    });
+  }
+}
+
+async function login(req, res) {
+  const { email, password } = req.body;
+  // 0. TODO: middleware
+
+  // 1. verificacion de los parametros (formato)
+  const errorMessages = [];
+  if (!isEmail(email)) {
+    errorMessages.push("Email is not valid");
   }
 
-  // 3.  Mandar respuesta para cada escenario.
+  if (!isPassword(password)) {
+    errorMessages.push("Password is not valid");
+  }
 
-  // 4. Control de excepciones try-catch.
+  if (errorMessages.length) {
+    res.status(HTTPCodes.BAD_REQUEST).send({ error: errorMessages });
+  } else {
+    const [credentials] = await getCredentials(email);
 
-  res.send({
-    sucess: true,
-  });
+    const encryptedPassword = crypto
+      .pbkdf2Sync(password, credentials.salt, 30000, 64, "sha256")
+      .toString("base64");
+
+    if (encryptedPassword == credentials.password) {
+      // generate
+      jwt.sign({ email });
+      res.send({
+        success: true,
+      });
+    } else {
+      res.status(HTTPCodes.UNAUTHORIZED).send({
+        message: "Contrasena incorrecta",
+      });
+    }
+  }
+
+  // 2. TODO: ejecucion del procedimiento
+  // 2.1 validacion en base de datos
+
+  // 3. TODO: mandar una respuesta para cada escenario
+
+  // 4. TODO: control de excepciones try catch
 }
 
 module.exports = {
-  loginUser,
+  login,
+  register,
 };

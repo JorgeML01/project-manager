@@ -1,21 +1,34 @@
+require("dotenv").config();
+
 const knex = require("knex")({
   client: "mysql",
   connection: {
-    host: "127.0.0.1",
+    host: process.env.HOST,
     port: 3306,
     user: "root",
-    password: "ExperienciaUsuario++",
-    database: "trellodb",
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE,
   },
 });
 
-async function getUser(email) {
-  let users = await knex("users").where("email", email);
-  users = JSON.stringify(users);
-  users = JSON.parse(users);
-  return users;
-}
+const registerUser = async (user) => {
+  return await knex("users").insert({
+    email: user.email,
+    password: user.encryptedPassword,
+    salt: user.salt,
+  });
+};
+
+const getCredentials = async (email) => {
+  let credentials = await knex
+    .select("password", "salt")
+    .from("users")
+    .where("email", email);
+  credentials = JSON.stringify(credentials);
+  return JSON.parse(credentials);
+};
 
 module.exports = {
-  getUser,
+  getCredentials,
+  registerUser,
 };
