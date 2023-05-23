@@ -1,75 +1,82 @@
 import React, { useState } from "react";
-// import ReactDOM from "react-dom";
-
-import "./styles.css";
+import axios from "axios";
 
 function RegisterForm() {
-  // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  // User Login info
-  const database = [
-    {
-      username: "user1",
-      password: "pass1",
-    },
-    {
-      username: "user2",
-      password: "pass2",
-    },
-  ];
-
-  const errors = {
-    uname: "invalid username",
-    pass: "invalid password",
-  };
-
-  const handleSubmit = (event) => {
-    //Prevent page reload
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    var { uname, pass } = document.forms[0];
+    try {
+      const response = await axios.post("http://localhost:3001/register/", {
+        email,
+        password,
+      });
 
-    // Find user login info
-    const userData = database.find((user) => user.username === uname.value);
-
-    // Compare user info
-    if (userData) {
-      if (userData.password !== pass.value) {
-        // Invalid password
-        setErrorMessages({ name: "pass", message: errors.pass });
+      // Registration successful
+      setIsSubmitted(true);
+      console.log(response.data);
+      console.log("no hay nada");
+    } catch (error) {
+      // Registration error
+      if (error.response) {
+        setErrorMessages({
+          name: "server",
+          message: error.response.data.error,
+        });
+      } else if (error.request) {
+        console.error("No se recibió respuesta del servidor...");
       } else {
-        setIsSubmitted(true);
+        console.error("Error al hacer la solicitud:", error.message);
       }
-    } else {
-      // Username not found
-      setErrorMessages({ name: "uname", message: errors.uname });
     }
+  }
+
+  function renderErrorMessage(name) {
+    if (errorMessages.name === name) {
+      return <div className="error">{errorMessages.message}</div>;
+    }
+    return null;
+  }
+
+  const handleChangeEmail = (event) => {
+    setEmail(event.target.value);
   };
 
-  // Generate JSX code for error message
-  const renderErrorMessage = (name) =>
-    name === errorMessages.name && (
-      <div className="error">{errorMessages.message}</div>
-    );
+  const handleChangePassword = (event) => {
+    setPassword(event.target.value);
+  };
 
-  // JSX code for login form
   const renderForm = (
     <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username </label>
-          <input type="text" name="uname" required />
-          {renderErrorMessage("uname")}
+          <label>Email</label>
+          <input
+            type="text"
+            name="email"
+            value={email}
+            onChange={handleChangeEmail}
+            required
+          />
+          {renderErrorMessage("email")}
         </div>
         <div className="input-container">
-          <label>Password </label>
-          <input type="password" name="pass" required />
-          {renderErrorMessage("pass")}
+          <label>Password</label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChangePassword}
+            required
+          />
+          {renderErrorMessage("password")}
         </div>
         <div className="button-container">
-          <input type="submit" />
+          <input type="submit" value="Register" />
         </div>
       </form>
     </div>
@@ -79,7 +86,7 @@ function RegisterForm() {
     <div className="app">
       <div className="login-form">
         <div className="title">Sign Up</div>
-        {isSubmitted ? <div>User is successfully logged in</div> : renderForm}
+        {isSubmitted ? <div>User is successfully registered</div> : renderForm}
       </div>
     </div>
   );

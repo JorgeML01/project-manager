@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 async function register(req, res) {
   const { email, password } = req.body;
   const errorMessages = [];
+
   if (!isEmail(email)) {
     errorMessages.push("Email is not valid");
   }
@@ -37,6 +38,7 @@ async function register(req, res) {
       salt,
     });
 
+    console.log("SE REGISTRÓ");
     res.send({
       success: true,
       newUserId,
