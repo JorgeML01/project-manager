@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
 
@@ -7,6 +8,13 @@ function LoginForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirectToBoards, setRedirectToBoards] = useState(false); // Nuevo estado para redireccionar
+
+  useEffect(() => {
+    if (isSubmitted) {
+      setRedirectToBoards(true); // Establecer el estado de redirección a true después de enviar el formulario
+    }
+  }, [isSubmitted]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -54,7 +62,7 @@ function LoginForm() {
     <div className="form">
       <form onSubmit={handleSubmit}>
         <div className="input-container">
-          <label>Username</label>
+          <label>Email</label>
           <input
             type="text"
             name="email"
@@ -81,6 +89,10 @@ function LoginForm() {
       </form>
     </div>
   );
+
+  if (redirectToBoards) {
+    return <Redirect to="/boards" />; // Redireccionar al usuario a localhost:3000/boards
+  }
 
   return (
     <div className="app">
