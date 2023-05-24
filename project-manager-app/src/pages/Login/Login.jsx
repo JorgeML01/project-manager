@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
@@ -8,15 +8,9 @@ function LoginForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirectToBoards, setRedirectToBoards] = useState(false); // Nuevo estado para redireccionar
+  const [redirectToBoards, setRedirectToBoards] = useState(false);
 
-  useEffect(() => {
-    if (isSubmitted) {
-      setRedirectToBoards(true); // Establecer el estado de redirección a true después de enviar el formulario
-    }
-  }, [isSubmitted]);
-
-  async function handleSubmit(event) {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
@@ -28,6 +22,8 @@ function LoginForm() {
       // Login successful
       setIsSubmitted(true);
       console.log(response.data);
+
+      setRedirectToBoards(true); // Mover esta línea aquí para redireccionar solo en caso de éxito
     } catch (error) {
       // Login error
       if (error.response) {
@@ -41,14 +37,14 @@ function LoginForm() {
         console.error("Error al hacer la solicitud:", error.message);
       }
     }
-  }
+  };
 
-  function renderErrorMessage(name) {
+  const renderErrorMessage = (name) => {
     if (errorMessages.name === name) {
       return <div className="error">{errorMessages.message}</div>;
     }
     return null;
-  }
+  };
 
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
@@ -91,7 +87,7 @@ function LoginForm() {
   );
 
   if (redirectToBoards) {
-    return <Redirect to="/boards" />; // Redireccionar al usuario a localhost:3000/boards
+    return <Redirect to="/boards" />;
   }
 
   return (
