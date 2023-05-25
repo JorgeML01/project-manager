@@ -20,14 +20,25 @@ function RegisterForm() {
       // Registration successful
       setIsSubmitted(true);
       console.log(response.data);
-      console.log("no hay nada");
     } catch (error) {
       // Registration error
       if (error.response) {
-        setErrorMessages({
-          name: "server",
-          message: error.response.data.error,
-        });
+        if (error.response.status === 400) {
+          setErrorMessages({
+            field: "credentials",
+            message: "Invalid email or password.",
+          });
+        } else if (error.response.status === 500) {
+          setErrorMessages({
+            field: "credentials",
+            message: "The email already exists.",
+          });
+        } else {
+          setErrorMessages({
+            field: "server",
+            message: error.response.data.error,
+          });
+        }
       } else if (error.request) {
         console.error("No se recibió respuesta del servidor...");
       } else {
@@ -36,8 +47,8 @@ function RegisterForm() {
     }
   }
 
-  function renderErrorMessage(name) {
-    if (errorMessages.name === name) {
+  function renderErrorMessage(field) {
+    if (errorMessages.field === field) {
       return <div className="error">{errorMessages.message}</div>;
     }
     return null;
@@ -75,6 +86,7 @@ function RegisterForm() {
             required
           />
           {renderErrorMessage("password")}
+          {renderErrorMessage("credentials")}
         </div>
         <div className="button-container">
           <input type="submit" value="Register" />

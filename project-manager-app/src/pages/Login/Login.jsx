@@ -23,14 +23,21 @@ function LoginForm() {
       setIsSubmitted(true);
       console.log(response.data);
 
-      setRedirectToBoards(true); // Mover esta línea aquí para redireccionar solo en caso de éxito
+      setRedirectToBoards(true);
     } catch (error) {
       // Login error
       if (error.response) {
-        setErrorMessages({
-          name: "server",
-          message: error.response.data.message,
-        });
+        if (error.response.status === 400) {
+          setErrorMessages({
+            field: "credentials",
+            message: "Invalid email or password.",
+          });
+        } else {
+          setErrorMessages({
+            field: "server",
+            message: error.response.data.message,
+          });
+        }
       } else if (error.request) {
         console.error("No se recibió respuesta del servidor...");
       } else {
@@ -39,8 +46,8 @@ function LoginForm() {
     }
   };
 
-  const renderErrorMessage = (name) => {
-    if (errorMessages.name === name) {
+  const renderErrorMessage = (field) => {
+    if (errorMessages.field === field) {
       return <div className="error">{errorMessages.message}</div>;
     }
     return null;
@@ -78,6 +85,7 @@ function LoginForm() {
             required
           />
           {renderErrorMessage("password")}
+          {renderErrorMessage("credentials")}
         </div>
         <div className="button-container">
           <input type="submit" value="Login" />

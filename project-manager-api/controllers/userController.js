@@ -5,52 +5,49 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
 async function register(req, res) {
-  const { email, password } = req.body;
-  const errorMessages = [];
+  try {
+    const { email, password } = req.body;
+    const errorMessages = [];
 
-  if (!isEmail(email)) {
-    errorMessages.push("Email is not valid");
-  }
-
-  if (!isPassword(password)) {
-    errorMessages.push("Password is not valid");
-  }
-
-  if (errorMessages.length) {
-    res.status(HTTPCodes.BAD_REQUEST).send({ error: errorMessages });
-  } else {
-    const salt = crypto.randomBytes(128).toString("base64");
-    const encryptedPassword = crypto
-      .pbkdf2Sync(password, salt, 30000, 64, "sha256")
-      .toString("base64");
-
-    // req.body
-    /*
-    {
-      email: ""
-      password: ""
+    if (!isEmail(email)) {
+      errorMessages.push("Email is not valid");
     }
-    */
-    const [newUserId] = await registerUser({
-      ...req.body,
-      encryptedPassword,
-      // salt: salt,
-      salt,
-    });
 
-    console.log("SE REGISTRÓ");
-    res.send({
-      success: true,
-      newUserId,
-    });
+    if (!isPassword(password)) {
+      errorMessages.push("Password is not valid");
+    }
+
+    if (errorMessages.length) {
+      res.status(HTTPCodes.BAD_REQUEST).send({ error: errorMessages });
+    } else {
+      const salt = crypto.randomBytes(128).toString("base64");
+      const encryptedPassword = crypto
+        .pbkdf2Sync(password, salt, 30000, 64, "sha256")
+        .toString("base64");
+
+      const [newUserId] = await registerUser({
+        ...req.body,
+        encryptedPassword,
+        salt,
+      });
+
+      console.log("SE REGISTRÓ");
+      res.send({
+        success: true,
+        newUserId,
+      });
+    }
+  } catch (error) {
+    console.log("Ya existe el usuario");
+    res
+      .status(HTTPCodes.INTERNAL_SERVER_ERROR)
+      .send({ error: "Internal server error" });
   }
 }
 
 async function login(req, res) {
   const { email, password } = req.body;
-  // 0. TODO: middleware
 
-  // 1. verificacion de los parametros (formato)
   try {
     const errorMessages = [];
     if (!isEmail(email)) {
@@ -73,21 +70,20 @@ async function login(req, res) {
 
       if (encryptedPassword == credentials.password) {
         // generate
-        const accessToken = jwt.sign(
-          { email },
-          process.env.TOKEN_KEY || "AS4D5FF6G78NHCV7X6X5C",
-          {
-            expiresIn: "1d",
-          }
-        );
+        const accessToken = jwt.sign({ email }, process.env.TOKEN_KEY, {
+          expiresIn: "1d",
+        });
 
-        const refreshToken = jwt.sign(
-          { email },
-          process.env.TOKEN_KEY || "AS4D5FF6G78NHCV7X6X5C",
-          {
-            expiresIn: "1m",
-          }
-        );
+        const refreshToken = jwt.sign({ email }, process.env.TOKEN_KEY, {
+          expiresIn: "1m",
+        });
+
+        // try {
+        //   res.cookie("testCookie", "cookie1");
+        //   console.log("Cookie set successfully:", req.cookies.testCookie);
+        // } catch (e) {
+        //   console.log("Error setting cookie:", e);
+        // }
 
         res.send({
           success: true,
@@ -111,13 +107,6 @@ async function login(req, res) {
       message: "Try again later",
     });
   }
-
-  // 2. TODO: ejecucion del procedimiento
-  // 2.1 validacion en base de datos
-
-  // 3. TODO: mandar una respuesta para cada escenario
-
-  // 4. TODO: control de excepciones try catch
 }
 
 module.exports = {
