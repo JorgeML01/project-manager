@@ -23,6 +23,9 @@ function LoginForm() {
       setIsSubmitted(true);
       console.log(response.data);
 
+      localStorage.setItem("accessToken", response.data.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.data.refreshToken);
+
       setRedirectToBoards(true);
     } catch (error) {
       // Login error
