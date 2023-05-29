@@ -8,21 +8,6 @@ async function getBoards(req, res) {
   res.json(boards);
 }
 
-async function getBoardsByEmail(email) {
-  try {
-    const boards = await knex("boards")
-      .join("users", "users.id", "=", "boards.user_id")
-      .select("*")
-      .where("users.email", email);
-
-    return boards;
-  } catch (error) {
-    console.error("Error al obtener los boards:", error);
-    throw error;
-  }
-}
-
 module.exports = {
   getBoards,
-  getBoardsByEmail,
 };

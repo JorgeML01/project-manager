@@ -12,6 +12,7 @@ function Dashboard() {
   const token = localStorage.getItem("accessToken");
   const decodedToken = decodeToken(token);
   const email = decodedToken.email;
+  const id = decodedToken.id;
 
   return (
     <section id="dashboard" role="dashboard">
@@ -19,7 +20,9 @@ function Dashboard() {
         <div className="board">
           <h2>Board name</h2>
           <p>Board description</p>
-          <p>Your email: {email}</p>
+          <p>
+            Your email: {email} id: {id}{" "}
+          </p>
         </div>
       </div>
     </section>

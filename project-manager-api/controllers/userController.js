@@ -64,26 +64,29 @@ async function login(req, res) {
       const [credentials] = await getCredentials(email);
 
       console.log("credentials", credentials);
+      console.log("id: ", credentials.id);
+
       const encryptedPassword = crypto
         .pbkdf2Sync(password, credentials.salt, 30000, 64, "sha256")
         .toString("base64");
 
       if (encryptedPassword == credentials.password) {
         // generate
-        const accessToken = jwt.sign({ email }, process.env.TOKEN_KEY, {
-          expiresIn: "1d",
-        });
+        const accessToken = jwt.sign(
+          { email, id: credentials.id },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "1d",
+          }
+        );
 
-        const refreshToken = jwt.sign({ email }, process.env.TOKEN_KEY, {
-          expiresIn: "1m",
-        });
-
-        // try {
-        //   res.cookie("testCookie", "cookie1");
-        //   console.log("Cookie set successfully:", req.cookies.testCookie);
-        // } catch (e) {
-        //   console.log("Error setting cookie:", e);
-        // }
+        const refreshToken = jwt.sign(
+          { email, id: credentials.id },
+          process.env.TOKEN_KEY,
+          {
+            expiresIn: "1m",
+          }
+        );
 
         res.send({
           success: true,
