@@ -79,7 +79,7 @@ function NavigationBar() {
                 </Button>
                 <Button
                   onClick={handleLogout}
-                  variant="dark"
+                  variant="secondary"
                   className="d-lg-none"
                 >
                   Log out
@@ -93,7 +93,7 @@ function NavigationBar() {
                 <>
                   <Button
                     onClick={handleLogout}
-                    variant="dark"
+                    variant="secondary"
                     className="d-none d-lg-block"
                   >
                     Log out
