@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NavigationBar from "./pages/NavigationBar/NavigationBar";
 import Footer from "./pages/Footer/Footer";
@@ -7,7 +8,6 @@ import LoginForm from "./pages/Login/Login";
 import RegisterForm from "./pages/Register/Register";
 import AboutInfo from "./pages/About/About";
 import ContactInfo from "./pages/Contact/Contact";
-
 import Dashboard from "./pages/Dashboard/Dashboard";
 
 const Home = () => {
@@ -61,36 +61,33 @@ const Boards = () => {
 
 function App() {
   return (
-    <>
-      {/* header */}
-      {/* navigation */}
-      <NavigationBar />
-      {/* body */}
-      <Router>
+    <Router>
+      <>
+        <NavigationBar />
         <Switch>
           <Route exact path="/">
-            {Home}
+            <Home />
           </Route>
           <Route exact path="/about">
-            {About}
+            <About />
           </Route>
           <Route exact path="/contact">
-            {Contact}
+            <Contact />
           </Route>
           <Route exact path="/login">
-            {Login}
+            <Login />
           </Route>
           <Route exact path="/register">
-            {Register}
+            <Register />
           </Route>
           <Route exact path="/boards">
-            {Boards}
+            <Boards />
           </Route>
           <Route>{/* Componente para la página de error 404 */}</Route>
         </Switch>
-      </Router>
-      <Footer />
-    </>
+        <Footer />
+      </>
+    </Router>
   );
 }
 

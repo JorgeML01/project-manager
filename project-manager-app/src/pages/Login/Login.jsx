@@ -1,14 +1,22 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import "./styles.css";
 
 function LoginForm() {
+  const history = useHistory();
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [redirectToBoards, setRedirectToBoards] = useState(false);
+
+  const handleLoginSuccess = () => {
+    setIsSubmitted(true);
+    history.push("/");
+    // Así se hace un refresh por el bug de los botones de sign up y sign in.
+    window.location.reload();
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -20,13 +28,12 @@ function LoginForm() {
       });
 
       // Login successful
-      setIsSubmitted(true);
       console.log(response.data);
 
       localStorage.setItem("accessToken", response.data.data.accessToken);
       localStorage.setItem("refreshToken", response.data.data.refreshToken);
 
-      setRedirectToBoards(true);
+      handleLoginSuccess();
     } catch (error) {
       // Login error
       if (error.response) {
@@ -96,10 +103,6 @@ function LoginForm() {
       </form>
     </div>
   );
-
-  if (redirectToBoards) {
-    return <Redirect to="/boards" />;
-  }
 
   return (
     <div className="app">

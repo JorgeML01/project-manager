@@ -1,9 +1,40 @@
+import { useHistory } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import React, { useState } from "react";
 
 function NavigationBar() {
+  const history = useHistory();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isCheckLoginStatusDone, setIsCheckLoginStatusDone] = useState(false);
+
+  function checkLoginStatus() {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (accessToken && refreshToken) {
+      console.log("LOGGED");
+      setIsLoggedIn(true);
+    } else {
+      console.log("NOT LOGGED");
+      setIsLoggedIn(false);
+    }
+
+    setIsCheckLoginStatusDone(true);
+  }
+
+  function handleLogout() {
+    localStorage.clear();
+    setIsLoggedIn(false);
+    history.push("/login");
+  }
+
+  if (!isCheckLoginStatusDone) {
+    checkLoginStatus();
+  }
+
   return (
     <Navbar bg="dark" expand="lg" variant="dark">
       <Container fluid>
@@ -31,29 +62,64 @@ function NavigationBar() {
             <Button href="/contact" variant="dark">
               Contact
             </Button>
-            <Button href="/login" variant="dark" className="d-lg-none">
-              Sign in
-            </Button>
-            <Button href="/register" variant="dark" className="d-lg-none">
-              Sign up
-            </Button>
+            {!isLoggedIn && (
+              <>
+                <Button href="/login" variant="dark" className="d-lg-none">
+                  Sign in
+                </Button>
+                <Button href="/register" variant="dark" className="d-lg-none">
+                  Sign up
+                </Button>
+              </>
+            )}
+            {isCheckLoginStatusDone && isLoggedIn && (
+              <>
+                <Button href="/boards" variant="dark">
+                  Boards
+                </Button>
+                <Button
+                  onClick={handleLogout}
+                  variant="dark"
+                  className="d-lg-none"
+                >
+                  Log out
+                </Button>
+              </>
+            )}
           </Nav>
-          {/* <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2"
-              aria-label="Search"
-            />
-            <Button variant="outline-dark">Search</Button>
-          </Form> */}
+          {isCheckLoginStatusDone && (
+            <>
+              {isLoggedIn ? (
+                <>
+                  <Button
+                    onClick={handleLogout}
+                    variant="dark"
+                    className="d-none d-lg-block"
+                  >
+                    Log out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    href="/login"
+                    variant="dark"
+                    className="d-none d-lg-block"
+                  >
+                    Sign in
+                  </Button>
+                  <Button
+                    href="/register"
+                    variant="dark"
+                    className="d-none d-lg-block"
+                  >
+                    Sign up
+                  </Button>
+                </>
+              )}
+            </>
+          )}
         </Navbar.Collapse>
-        <Button href="/login" variant="dark" className="d-none d-lg-block">
-          Sign in
-        </Button>
-        <Button href="/register" variant="dark" className="d-none d-lg-block">
-          Sign up
-        </Button>
       </Container>
     </Navbar>
   );
