@@ -74,12 +74,20 @@ function Dashboard() {
 
         {boards.length > 0 ? (
           boards.map((board) => (
-            <div key={board.id} className="board">
-              <Link to={`/boards/${board.id}`}>
-                <h2>{board.name}</h2>
-              </Link>
-              <p>{board.description}</p>
-            </div>
+            <Link
+              to={`/boards/${board.id}`}
+              key={board.id}
+              className="board-link"
+            >
+              <div className="board">
+                <div className="board-content">
+                  <div className="title-wrapper">
+                    <h2 className="board-title">{board.name}</h2>
+                  </div>
+                  <p className="board-description">{board.description}</p>
+                </div>
+              </div>
+            </Link>
           ))
         ) : (
           <p className="no-boards-message">No boards available</p>

@@ -17,7 +17,9 @@
 }
 
 h2 {
-  color: #333;
+  color: #000000;
+  text-align: center;
+  margin: 5px;
 }
 
 h1 {
@@ -25,10 +27,6 @@ h1 {
   color: #333;
   font-weight: bold;
   margin-bottom: 1em;
-}
-p {
-  color: #777;
-  line-height: 1.5;
 }
 
 .create-button {
@@ -58,8 +56,43 @@ p {
 .modal {
   max-width: 100;
   max-height: 100;
-  background-color: #ffffff;
+  background-color: #7bcc12;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.board:hover {
+  background-color: #198754;
+}
+
+.board-link {
+  text-decoration: none !important;
+}
+
+.board-title {
+  color: #333;
+}
+
+.title-wrapper {
+  background-color: rgb(126, 179, 110);
+  padding: 8px;
+}
+
+.board-title {
+  color: #333;
+}
+
+.board-description {
+  color: #000000;
+  background-color: rgb(126, 179, 110);
+}
+
+p {
+  color: #0c0c0c;
+  line-height: 1.5;
+}
+
+.board {
+  background-color: rgb(126, 179, 110);
 }
