@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Modal from "react-modal"; // Ventanas emergentes.
 import "./styles.css";
@@ -74,7 +75,9 @@ function Dashboard() {
         {boards.length > 0 ? (
           boards.map((board) => (
             <div key={board.id} className="board">
-              <h2>{board.name}</h2>
+              <Link to={`/boards/${board.id}`}>
+                <h2>{board.name}</h2>
+              </Link>
               <p>{board.description}</p>
             </div>
           ))
