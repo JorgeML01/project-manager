@@ -4,6 +4,8 @@ import axios from "axios";
 import Modal from "react-modal"; // Ventanas emergentes.
 import "./styles.css";
 
+Modal.setAppElement(document.getElementById("root"));
+
 function decodeToken(token) {
   const payload = token.split(".")[1];
   const decodedPayload = atob(payload);
@@ -42,10 +44,7 @@ function Dashboard() {
   }
 
   function handleCreateBoard() {
-    // Lógica para crear el tablero
-    // ...
-
-    // Cerrar la ventana emergente
+    console.log("TEST - SE HA CREADO UN BOARD.");
     setShowModal(false);
   }
 
@@ -57,21 +56,40 @@ function Dashboard() {
           Create board
         </button>
 
-        {/* Ventana emergente */}
+        {/* Ventana emergente para la creación de boards. */}
         <Modal
           isOpen={showModal}
           onRequestClose={() => setShowModal(false)}
           contentLabel="Create New Board"
+          className="modal-container"
+          overlayClassName="modal-overlay"
         >
-          <h1>Create New Board</h1>
-          <p>Enter board name:</p>
-          <input type="text" placeholder="Board name" />
-          <p>Enter board description:</p>
-          <textarea placeholder="Board description"></textarea>
-          <button onClick={handleCreateBoard}>Create</button>
-          <button onClick={() => setShowModal(false)}>Cancel</button>
+          <div className="modal-content">
+            <h1 className="modal-title">Create New Board</h1>
+            <p>Enter board name:</p>
+            <input
+              className="modal-input"
+              type="text"
+              placeholder="Board name"
+            />
+            <p>Enter board description:</p>
+            <textarea
+              className="modal-textarea"
+              placeholder="Board description"
+            ></textarea>
+            <div className="modal-buttons">
+              <button onClick={handleCreateBoard} className="buttonCreate">
+                Create
+              </button>
+              <button
+                onClick={() => setShowModal(false)}
+                className="buttonCancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </Modal>
-
         {boards.length > 0 ? (
           boards.map((board) => (
             <Link
