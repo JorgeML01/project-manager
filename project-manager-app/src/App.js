@@ -9,6 +9,7 @@ import RegisterForm from "./pages/Register/Register";
 import AboutInfo from "./pages/About/About";
 import ContactInfo from "./pages/Contact/Contact";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Board from "./pages/Board/Board";
 
 const Home = () => {
   return (
@@ -82,6 +83,9 @@ function App() {
           </Route>
           <Route exact path="/boards">
             <Boards />
+          </Route>
+          <Route exact path="/board">
+            <Board />
           </Route>
           <Route>{/* Componente para la página de error 404 */}</Route>
         </Switch>
