@@ -16,12 +16,14 @@ function decodeToken(token) {
 function Dashboard() {
   const token = localStorage.getItem("accessToken");
   const decodedToken = decodeToken(token);
-  const email = decodedToken.email;
+  // const email = decodedToken.email;
   const id = decodedToken.id;
 
   const [boards, setBoards] = useState([]);
   const [fetchCalled, setFetchCalled] = useState(false); // Variable de estado adicional
   const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   const fetchBoards = async () => {
     try {
@@ -45,6 +47,37 @@ function Dashboard() {
 
   function handleCreateBoard() {
     console.log("TEST - SE HA CREADO UN BOARD.");
+    console.log("Name:", name);
+    console.log("Description:", description);
+
+    const url = "http://localhost:3001/boards/create"; // La URL de la API para crear un nuevo tablero
+
+    // Crear un objeto con los datos del nuevo tablero
+    const data = {
+      name: name,
+      id: id,
+      description: description,
+    };
+
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData); // Hacer algo con la respuesta del servidor
+        setShowModal(false);
+        // Actualizar el estado de boards si es necesario
+        // setBoards([...boards, responseData]);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    setFetchCalled(false);
     setShowModal(false);
   }
 
@@ -71,11 +104,13 @@ function Dashboard() {
               className="modal-input"
               type="text"
               placeholder="Board name"
+              onChange={(e) => setName(e.target.value)}
             />
             <p>Enter board description:</p>
             <textarea
               className="modal-textarea"
               placeholder="Board description"
+              onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             <div className="modal-buttons">
               <button onClick={handleCreateBoard} className="buttonCreate">

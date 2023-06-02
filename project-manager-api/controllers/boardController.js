@@ -9,12 +9,7 @@ async function getBoards(req, res) {
 }
 
 async function createBoard(req, res) {
-  //const token = localStorage.getItem("accessToken");
-  //const decodedToken = decodeToken(token);
-  //const id = decodedToken.id;
-  const id = 13;
-
-  const { name, description } = req.body;
+  const { name, id, description } = req.body;
 
   console.log("b");
   try {
