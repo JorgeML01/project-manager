@@ -33,7 +33,20 @@ async function getBoardsByEmail(email) {
   }
 }
 
+async function createBoard(name, user_id, description) {
+  let board = await knex("boards").insert({
+    name,
+    user_id,
+    description,
+  });
+
+  board = JSON.stringify(board);
+  board = JSON.parse(board);
+  return board;
+}
+
 module.exports = {
   getBoards,
   getBoardsByEmail,
+  createBoard,
 };

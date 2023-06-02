@@ -99,10 +99,10 @@ function Dashboard() {
             >
               <div className="board">
                 <div className="board-content">
-                  <div className="title-wrapper">
+                  <div className="">
                     <h2 className="board-title">{board.name}</h2>
                   </div>
-                  <p className="board-description">{board.description}</p>
+                  <p className="">{board.description}</p>
                 </div>
               </div>
             </Link>

@@ -97,6 +97,8 @@ p {
 
 .board {
   background-color: rgb(126, 179, 110);
+  border: 2px solid black;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
 }
 
 .modal-container {
