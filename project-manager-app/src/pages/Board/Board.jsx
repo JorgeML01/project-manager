@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import "./styles.css";
 
 // fake data generator
 const getItems = (count, offset = 0) =>
@@ -81,9 +82,10 @@ export default function QuoteApp() {
   }
 
   return (
-    <div>
+    <div className="container">
       <button
         type="button"
+        className="add-button button-new-group"
         onClick={() => {
           setState([...state, []]);
         }}
@@ -92,6 +94,7 @@ export default function QuoteApp() {
       </button>
       <button
         type="button"
+        className="add-button"
         onClick={() => {
           setState([...state, getItems(1)]);
         }}
@@ -133,6 +136,7 @@ export default function QuoteApp() {
                             {item.content}
                             <button
                               type="button"
+                              className="delete-button"
                               onClick={() => {
                                 const newState = [...state];
                                 newState[ind].splice(index, 1);
