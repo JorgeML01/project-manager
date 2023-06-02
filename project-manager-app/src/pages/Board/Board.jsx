@@ -103,60 +103,63 @@ export default function QuoteApp() {
       </button>
       <div style={{ display: "flex" }}>
         <DragDropContext onDragEnd={onDragEnd}>
-          {state.map((el, ind) => (
-            <Droppable key={ind} droppableId={`${ind}`}>
-              {(provided, snapshot) => (
-                <div
-                  ref={provided.innerRef}
-                  style={getListStyle(snapshot.isDraggingOver)}
-                  {...provided.droppableProps}
-                >
-                  {el.map((item, index) => (
-                    <Draggable
-                      key={item.id}
-                      draggableId={item.id}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <div
-                          ref={provided.innerRef}
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          style={getItemStyle(
-                            snapshot.isDragging,
-                            provided.draggableProps.style
-                          )}
-                        >
-                          <div
-                            style={{
-                              display: "flex",
-                              justifyContent: "space-around",
-                            }}
+          <div className="container">
+            <div className="row row-cols-1 row-cols-md-3 sm-12 ">
+              {state.map((el, ind) => (
+                <div key={ind} className="list">
+                  <Droppable key={ind} droppableId={`${ind}`}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        style={getListStyle(snapshot.isDraggingOver)}
+                        className="col mb-4 center-list"
+                      >
+                        <h2>board_name</h2>
+                        {el.map((item, index) => (
+                          <Draggable
+                            key={item.id}
+                            draggableId={item.id}
+                            index={index}
                           >
-                            {item.content}
-                            <button
-                              type="button"
-                              className="delete-button"
-                              onClick={() => {
-                                const newState = [...state];
-                                newState[ind].splice(index, 1);
-                                setState(
-                                  newState.filter((group) => group.length)
-                                );
-                              }}
-                            >
-                              delete
-                            </button>
-                          </div>
-                        </div>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  snapshot.isDragging,
+                                  provided.draggableProps.style
+                                )}
+                                className="mb-3"
+                              >
+                                <div className="d-flex justify-content-between">
+                                  {item.content}
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => {
+                                      const newState = [...state];
+                                      newState[ind].splice(index, 1);
+                                      setState(
+                                        newState.filter((group) => group.length)
+                                      );
+                                    }}
+                                  >
+                                    delete
+                                  </button>
+                                </div>
+                              </div>
+                            )}
+                          </Draggable>
+                        ))}
+                        {provided.placeholder}
+                      </div>
+                    )}
+                  </Droppable>
                 </div>
-              )}
-            </Droppable>
-          ))}
+              ))}
+            </div>
+          </div>
         </DragDropContext>
       </div>
     </div>

@@ -9,11 +9,6 @@
 }
 
 .board {
-  background-color: #fff;
-  border-radius: 4px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -99,6 +94,12 @@ p {
   background-color: rgb(126, 179, 110);
   border: 2px solid black;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+  width: 50em;
+  height: 150px;
+  padding: 10px;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .modal-container {
