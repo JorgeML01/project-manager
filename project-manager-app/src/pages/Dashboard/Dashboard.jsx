@@ -128,7 +128,7 @@ function Dashboard() {
         {boards.length > 0 ? (
           boards.map((board) => (
             <Link
-              to={`/boards/${board.id}`}
+              to={`users/${id}/boards/${board.id}/lists`}
               key={board.id}
               className="board-link"
             >

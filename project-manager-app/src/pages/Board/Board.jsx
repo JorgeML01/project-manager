@@ -53,6 +53,13 @@ const getListStyle = (isDraggingOver) => ({
   width: 250,
 });
 
+function decodeToken(token) {
+  const payload = token.split(".")[1];
+  const decodedPayload = atob(payload);
+  const parsedPayload = JSON.parse(decodedPayload);
+  return parsedPayload;
+}
+
 export default function QuoteApp() {
   const [state, setState] = useState([]);
 
