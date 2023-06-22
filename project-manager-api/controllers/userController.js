@@ -102,10 +102,6 @@ async function login(req, res) {
       }
     }
   } catch (e) {
-    // logging
-    // writeFile(exception e)
-
-    // alerts/notifications
     res.status(HTTPCodes.INTERNAL_SERVER_ERROR).send({
       message: "Try again later",
     });

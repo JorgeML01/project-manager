@@ -18,6 +18,26 @@ async function getLists(board_id) {
   return lists;
 }
 
+async function createList(name, board_id) {
+  try {
+    const newList = {
+      name,
+      board_id,
+    };
+
+    const result = await knex("lists").insert(newList);
+    const createdListId = result[0];
+
+    console.log("List created with ID:", createdListId);
+
+    return createdListId;
+  } catch (error) {
+    console.log("Error creating list:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getLists,
+  createList,
 };
