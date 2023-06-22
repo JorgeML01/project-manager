@@ -19,6 +19,8 @@ async function getLists(board_id) {
 }
 
 async function createList(name, board_id) {
+  console.log(name);
+  console.log(board_id);
   try {
     const newList = {
       name,
