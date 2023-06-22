@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import axios from "axios";
 import "./styles.css";
 
 // fake data generator
@@ -61,6 +62,42 @@ function decodeToken(token) {
 }
 
 export default function QuoteApp() {
+  const token = localStorage.getItem("accessToken");
+  const decodedToken = decodeToken(token);
+  const id = decodedToken.id;
+
+  const [board, setBoard] = useState([]);
+  const [fetchCalled, setFetchCalled] = useState(false);
+  const [nameBoard, setBoardName] = useState("");
+  const [nameCard, setCardName] = useState("");
+  const [descriptionCard, setDescriptionCard] = useState("");
+
+  // Obtenemos el board id.
+  const currentURL = window.location.href;
+  const boardId = currentURL.match(/\/boards\/(\d+)/)[1];
+  console.log(boardId);
+
+  const fetchBoard = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3001/users/${id}/boards/${boardId}/lists`
+      );
+      const data = response.data;
+      setBoard(data);
+      console.log("hola");
+      console.log("GET: ", data);
+    } catch (error) {
+      console.log("No cargaron los boards.");
+    }
+  };
+
+  // Llamar a la función fetchBoards al cargar el componente
+  if (!fetchCalled) {
+    // Llamar a fetchBoards solo una vez al cargar el componente
+    fetchBoard();
+    setFetchCalled(true); // Actualizar el estado para indicar que fetchBoards ya ha sido llamado
+  }
+
   const [state, setState] = useState([]);
 
   function onDragEnd(result) {
@@ -98,6 +135,7 @@ export default function QuoteApp() {
         }}
       >
         Add new group
+        {/* {currentURL} */}
       </button>
       <button
         type="button"

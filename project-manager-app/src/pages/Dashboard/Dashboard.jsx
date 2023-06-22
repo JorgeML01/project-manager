@@ -16,7 +16,6 @@ function decodeToken(token) {
 function Dashboard() {
   const token = localStorage.getItem("accessToken");
   const decodedToken = decodeToken(token);
-  // const email = decodedToken.email;
   const id = decodedToken.id;
 
   const [boards, setBoards] = useState([]);
@@ -128,7 +127,7 @@ function Dashboard() {
         {boards.length > 0 ? (
           boards.map((board) => (
             <Link
-              to={`users/${id}/boards/${board.id}/lists`}
+              to={`/users/${id}/boards/${board.id}/lists`}
               key={board.id}
               className="board-link"
             >

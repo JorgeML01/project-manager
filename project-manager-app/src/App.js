@@ -84,7 +84,7 @@ function App() {
           <Route exact path="/boards">
             <Boards />
           </Route>
-          <Route exact path="/board">
+          <Route exact path="/users/:userId/boards/:boardId/lists">
             <Board />
           </Route>
           <Route>{/* Componente para la página de error 404 */}</Route>
